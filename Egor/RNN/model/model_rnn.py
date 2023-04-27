@@ -34,7 +34,11 @@ def func(sentence):
     model = RNNNet(VOCAB_SIZE, EMBEDDING_DIM, HIDDEN_DIM, SEQ_LEN, N_LAYERS)
     model.load_state_dict(torch.load('./rnn_model_epoch_2.pt', map_location=device))
     model.eval()
-    return model(features).item()
+    output = model(features)
+
+    sigmoid = nn.Sigmoid()
+
+    return sigmoid(output).detach().numpy()
 
 
 class RNNNet(nn.Module):    
