@@ -23,7 +23,7 @@ def func(sentence):
     N_LAYERS = 2
     SEQ_LEN = 256
 
-    vocab_to_int = load('./vocab.joblib')
+    vocab_to_int = load('models/vocab.joblib')
     VOCAB_SIZE = len(vocab_to_int)+1 
 
     reviews_int = [vocab_to_int[word] for word in sentence.split() if vocab_to_int.get(word)]
@@ -32,7 +32,7 @@ def func(sentence):
     features = torch.tensor(features)
 
     model = RNNNet(VOCAB_SIZE, EMBEDDING_DIM, HIDDEN_DIM, SEQ_LEN, N_LAYERS)
-    model.load_state_dict(torch.load('./rnn_model_epoch_2.pt', map_location=device))
+    model.load_state_dict(torch.load('models/rnn_model_epoch_2.pt', map_location=device))
     model.eval()
     output = model(features)
 

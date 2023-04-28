@@ -8,12 +8,8 @@ import torch
 from collections import Counter
 from nltk.corpus import stopwords
 stop_words = set(stopwords.words('english'))
-from tqdm.notebook import tqdm
-from sklearn.model_selection import train_test_split
-from torch.utils.data import DataLoader, TensorDataset
+
 import torch.nn as nn
-import torchutils as tu
-from torchmetrics.classification import BinaryAccuracy
 
 
 def data_preprocessing(text: str) -> str:
@@ -104,14 +100,14 @@ def load_model():
                           embedding_dim=EMBEDDING_DIM,
                           hidden_dim=HIDDEN_DIM,
                           n_layers=N_LAYERS)
-    model.load_state_dict(torch.load('../LSTM_model_weights.pt'))
+    model.load_state_dict(torch.load('models/LSTM_model_weights.pt'))
     model.eval()
     return model
 
 
 def predict_sentiment(review):
     model = load_model()
-    vocab_to_int = torch.load('vocab.pth')
+    vocab_to_int = torch.load('models/vocab.pth')
     prediction = model.to(device)(preprocess_single_string(review, seq_len=128, vocab_to_int=vocab_to_int).unsqueeze(0).to(device))
     probability = prediction[0][0]
     if probability > 0.50:
