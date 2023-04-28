@@ -57,9 +57,9 @@ def final(user_input):
         clean_tokenized_text.append(' '.join([word for word in element if word not in sw]))
 
 
-    model = load('./linreg_model.joblib') 
-    vector_fit = load('./vector_fit.joblib') 
-    trunc_fit = load('./X_lsa.joblib') 
+    model = load('models/linreg_model.joblib') 
+    vector_fit = load('models/vector_fit.joblib') 
+    trunc_fit = load('models/X_lsa.joblib') 
     pipeline = make_pipeline(vector_fit, trunc_fit)
 
     final = pipeline.transform(clean_tokenized_text)
