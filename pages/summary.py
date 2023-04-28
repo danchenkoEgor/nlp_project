@@ -1,6 +1,7 @@
-API_TOKEN = st.secrets["API_TOKEN"]
 import streamlit as st
 import requests
+
+API_TOKEN = st.secrets["API_TOKEN"]
 
 API_URL = "https://api-inference.huggingface.co/models/cointegrated/rut5-base-absum"
 headers = {"Authorization": f"Bearer {API_TOKEN}"}
